@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tzf.dao.AuctionRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.tzf.model.AuctionRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="auctionId" property="auctionid" jdbcType="INTEGER" />
+    <result column="auctionTime" property="auctiontime" jdbcType="TIMESTAMP" />
+    <result column="auctionPrice" property="auctionprice" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userId, auctionId, auctionTime, auctionPrice
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from auctionrecord
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from auctionrecord
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tzf.model.AuctionRecord" >
+    insert into auctionrecord (id, userId, auctionId, 
+      auctionTime, auctionPrice)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{auctionid,jdbcType=INTEGER}, 
+      #{auctiontime,jdbcType=TIMESTAMP}, #{auctionprice,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tzf.model.AuctionRecord" >
+    insert into auctionrecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="auctionid != null" >
+        auctionId,
+      </if>
+      <if test="auctiontime != null" >
+        auctionTime,
+      </if>
+      <if test="auctionprice != null" >
+        auctionPrice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="auctionid != null" >
+        #{auctionid,jdbcType=INTEGER},
+      </if>
+      <if test="auctiontime != null" >
+        #{auctiontime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auctionprice != null" >
+        #{auctionprice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tzf.model.AuctionRecord" >
+    update auctionrecord
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="auctionid != null" >
+        auctionId = #{auctionid,jdbcType=INTEGER},
+      </if>
+      <if test="auctiontime != null" >
+        auctionTime = #{auctiontime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auctionprice != null" >
+        auctionPrice = #{auctionprice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tzf.model.AuctionRecord" >
+    update auctionrecord
+    set userId = #{userid,jdbcType=INTEGER},
+      auctionId = #{auctionid,jdbcType=INTEGER},
+      auctionTime = #{auctiontime,jdbcType=TIMESTAMP},
+      auctionPrice = #{auctionprice,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

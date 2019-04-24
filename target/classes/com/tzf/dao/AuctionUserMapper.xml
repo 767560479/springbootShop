@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tzf.dao.AuctionUserMapper" >
+  <resultMap id="BaseResultMap" type="com.tzf.model.AuctionUser" >
+    <id column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="userPassword" property="userpassword" jdbcType="VARCHAR" />
+    <result column="userCardNo" property="usercardno" jdbcType="VARCHAR" />
+    <result column="userTel" property="usertel" jdbcType="VARCHAR" />
+    <result column="userAddress" property="useraddress" jdbcType="VARCHAR" />
+    <result column="userPostNumber" property="userpostnumber" jdbcType="VARCHAR" />
+    <result column="userIsadmin" property="userisadmin" jdbcType="INTEGER" />
+    <result column="userQuestion" property="userquestion" jdbcType="VARCHAR" />
+    <result column="userAnswer" property="useranswer" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userId, userName, userPassword, userCardNo, userTel, userAddress, userPostNumber, 
+    userIsadmin, userQuestion, userAnswer
+  </sql>
+  
+  <select id="selectUserAll" resultMap="BaseResultMap" >
+  select
+  <include refid="Base_Column_List"></include>
+  from auctionuser
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from auctionuser
+    where userId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from auctionuser
+    where userId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tzf.model.AuctionUser" >
+    insert into auctionuser (userId, userName, userPassword, 
+      userCardNo, userTel, userAddress, 
+      userPostNumber, userIsadmin, userQuestion, 
+      userAnswer)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, 
+      #{usercardno,jdbcType=VARCHAR}, #{usertel,jdbcType=VARCHAR}, #{useraddress,jdbcType=VARCHAR}, 
+      #{userpostnumber,jdbcType=VARCHAR}, #{userisadmin,jdbcType=INTEGER}, #{userquestion,jdbcType=VARCHAR}, 
+      #{useranswer,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tzf.model.AuctionUser" >
+    insert into auctionuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="userpassword != null" >
+        userPassword,
+      </if>
+      <if test="usercardno != null" >
+        userCardNo,
+      </if>
+      <if test="usertel != null" >
+        userTel,
+      </if>
+      <if test="useraddress != null" >
+        userAddress,
+      </if>
+      <if test="userpostnumber != null" >
+        userPostNumber,
+      </if>
+      <if test="userisadmin != null" >
+        userIsadmin,
+      </if>
+      <if test="userquestion != null" >
+        userQuestion,
+      </if>
+      <if test="useranswer != null" >
+        userAnswer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usercardno != null" >
+        #{usercardno,jdbcType=VARCHAR},
+      </if>
+      <if test="usertel != null" >
+        #{usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null" >
+        #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userpostnumber != null" >
+        #{userpostnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userisadmin != null" >
+        #{userisadmin,jdbcType=INTEGER},
+      </if>
+      <if test="userquestion != null" >
+        #{userquestion,jdbcType=VARCHAR},
+      </if>
+      <if test="useranswer != null" >
+        #{useranswer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tzf.model.AuctionUser" >
+    update auctionuser
+    <set >
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        userPassword = #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usercardno != null" >
+        userCardNo = #{usercardno,jdbcType=VARCHAR},
+      </if>
+      <if test="usertel != null" >
+        userTel = #{usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null" >
+        userAddress = #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userpostnumber != null" >
+        userPostNumber = #{userpostnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userisadmin != null" >
+        userIsadmin = #{userisadmin,jdbcType=INTEGER},
+      </if>
+      <if test="userquestion != null" >
+        userQuestion = #{userquestion,jdbcType=VARCHAR},
+      </if>
+      <if test="useranswer != null" >
+        userAnswer = #{useranswer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tzf.model.AuctionUser" >
+    update auctionuser
+    set userName = #{username,jdbcType=VARCHAR},
+      userPassword = #{userpassword,jdbcType=VARCHAR},
+      userCardNo = #{usercardno,jdbcType=VARCHAR},
+      userTel = #{usertel,jdbcType=VARCHAR},
+      userAddress = #{useraddress,jdbcType=VARCHAR},
+      userPostNumber = #{userpostnumber,jdbcType=VARCHAR},
+      userIsadmin = #{userisadmin,jdbcType=INTEGER},
+      userQuestion = #{userquestion,jdbcType=VARCHAR},
+      userAnswer = #{useranswer,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

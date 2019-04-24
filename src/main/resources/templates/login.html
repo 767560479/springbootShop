@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="wrap">
+<!-- main begin-->
+ <div class="main">
+   <div class="sidebar">
+     <p><img src="images/img1.jpg" width="443" height="314" alt="" /></p>
+   </div>
+   <div class="sidebarg">
+    <form id="goLogin" action="/tologin" method="post" >
+    <div class="login">
+      <dl>
+        <dt class="blues">用户登陆</dt>
+        <dd><label for="name">用户名：</label><input type="text" class="inputh" placeholder="账号或邮箱"  id="name" name="username"/></dd>
+        <dd><label for="password">密 码：</label><input type="password" class="inputh" placeholder="密码" id="password" name="userpassword"/></dd>
+        <dd>
+           <label class="lf" for="passwords">验证码：</label>
+           <input type="text" class="inputh inputs lf" placeholder="验证码" id="passwords" name="checknumber"/>
+           <span class="wordp lf"><img id="checkNumbers" src="defaultKaptcha?d=new Date()" width="96" height="27" alt="" onclick="this.src='defaultKaptcha?d='+new Date()"/></span>
+           <span class="blues lf" onclick="checkNum()"><a href="#" >看不清</a></span>
+           
+        </dd>
+        <dd>
+           <input   type="checkbox" id="rem_u"  />
+           <span for="rem_u">下次自动登录</span>
+            <span for="rem_u" style="color: red;font-size: 18px;font-weight: bold;" th:text="${errorMsg}">提示信息</span>
+        </dd>
+        <dd class="buttom">
+           <input   type="submit" value="登 录" class="spbg buttombg f14 lf" />
+           <input  type="button" value="注 册" onclick="location='/toRegister'" class="spbg buttombg f14 lf"  />
+           <span class="blues  lf"><a href="#" title="">忘记密码?</a></span>
+           <div class="cl"></div>
+        </dd>
+       
+      </dl>
+    </div>
+    </form>
+   </div>
+  <div class="cl"></div>
+ </div>
+<!-- main end-->
+ 
+<!-- footer begin-->
+</div>
+ <!--footer end-->
+ 
+</div>
+</body>
+<script type="text/javascript">
+	function checkNum(){
+		document.getElementById("checkNumbers").src="defaultKaptcha?d=new Date()";
+	}
+</script>
+<script>
+  window.onload = function(){
+    var oForm = document.getElementById('goLogin');
+    var oUser = document.getElementById('name');
+    var oPswd = document.getElementById('password');
+    var oRemember = document.getElementById('rem_u');
+    //页面初始化时，如果帐号密码cookie存在则填充
+    if(getCookie('name') && getCookie('password')){
+      oUser.value = getCookie('name');
+      oPswd.value = getCookie('password');
+      oRemember.checked = true;
+      
+    }
+    //复选框勾选状态发生改变时，如果未勾选则清除cookie
+    oRemember.onchange = function(){
+      if(!this.checked){
+        delCookie('name');
+        delCookie('password');
+      }
+    };
+    //表单提交事件触发时，如果复选框是勾选状态则保存cookie
+    oForm.onsubmit = function(){
+      if(rem_u.checked){
+        setCookie('name',oUser.value,7); //保存帐号到cookie，有效期7天
+        setCookie('password',oPswd.value,7); //保存密码到cookie，有效期7天
+      }
+    };
+  };
+  //设置cookie
+  function setCookie(name,value,day){
+    var date = new Date();
+    date.setDate(date.getDate() + day);
+    document.cookie = name + '=' + value + ';expires='+ date;
+  };
+  //获取cookie
+  function getCookie(name){
+    var reg = RegExp(name+'=([^;]+)');
+    var arr = document.cookie.match(reg);
+    if(arr){
+      return arr[1];
+    }else{
+      return '';
+    }
+  };
+  //删除cookie
+  function delCookie(name){
+    setCookie(name,null,-1);
+  };
+</script>
+
+</html>
